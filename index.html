@@ -15,13 +15,22 @@
         .page {
             display: none;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
         .page.active {
             display: block;
+            animation: fadeIn 0.4s ease-out;
         }
         .btn-role.active {
             background-color: #2dd4bf; /* teal-400 */
             color: white;
             border-color: #2dd4bf; /* teal-400 */
+        }
+        .nav-btn.active {
+            background-color: #14b8a6; /* teal-600 */
+            color: white;
         }
     </style>
 </head>
@@ -103,54 +112,64 @@
 
         <!-- Dashboard Siswa -->
         <div id="studentDashboard" class="page">
-            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b pb-4">
-                    <div>
-                        <h1 class="text-3xl font-bold text-slate-800">Dashboard Siswa</h1>
-                        <p id="studentInfo" class="text-slate-600 mt-1">Selamat datang, <span class="font-semibold">Nama Siswa</span> (NIS: <span class="font-semibold">NIS Siswa</span>)</p>
-                    </div>
-                    <button id="logoutSiswa" class="mt-4 sm:mt-0 w-full sm:w-auto bg-red-400 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-500 transition">Logout</button>
-                </div>
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Konten Utama Dashboard Siswa -->
+                <div class="w-full lg:w-2/3">
+                    <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b pb-4">
+                            <div>
+                                <h1 class="text-3xl font-bold text-slate-800">Dashboard Siswa</h1>
+                                <p id="studentInfo" class="text-slate-600 mt-1">Selamat datang, <span class="font-semibold">Nama Siswa</span> (NIS: <span class="font-semibold">NIS Siswa</span>)</p>
+                            </div>
+                            <button id="logoutSiswa" class="mt-4 sm:mt-0 w-full sm:w-auto bg-red-400 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-500 transition">Logout</button>
+                        </div>
 
-                <div id="studentNotification" class="hidden mb-6 p-4 rounded-md text-sm"></div>
-                
-                <div class="bg-slate-50 p-6 rounded-lg mb-8">
-                    <h2 class="text-xl font-semibold text-slate-700 mb-3">Absensi Hari Ini</h2>
-                    <p class="text-slate-600 mb-4">Silakan pilih status kehadiran Anda dan isi keterangan jika diperlukan.</p>
-                    <div class="flex items-center space-x-4 mb-4">
-                        <select id="attendanceStatus" class="block w-48 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500">
-                            <option value="Hadir">Hadir</option>
-                            <option value="Izin">Izin</option>
-                            <option value="Sakit">Sakit</option>
-                        </select>
-                        <button id="submitAttendance" class="bg-teal-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-teal-600 transition">Submit Absensi</button>
-                    </div>
-                    <!-- Kolom Keterangan Izin -->
-                    <div id="izinReasonContainer" class="hidden mt-4">
-                        <label for="izinReason" class="block text-sm font-medium text-slate-700">Keterangan Izin</label>
-                        <textarea id="izinReason" rows="3" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500" placeholder="Contoh: Mengikuti lomba, acara keluarga, dll."></textarea>
-                    </div>
-                    <!-- Kolom Keterangan Sakit -->
-                    <div id="sakitReasonContainer" class="hidden mt-4">
-                         <label for="sakitReason" class="block text-sm font-medium text-slate-700">Keterangan Sakit</label>
-                        <textarea id="sakitReason" rows="3" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500" placeholder="Contoh: Demam, batuk, pusing, dll."></textarea>
+                        <div id="studentNotification" class="hidden mb-6 p-4 rounded-md text-sm"></div>
+                        
+                        <div class="bg-slate-50 p-6 rounded-lg mb-8">
+                            <h2 class="text-xl font-semibold text-slate-700 mb-3">Absensi Hari Ini</h2>
+                            <p class="text-slate-600 mb-4">Silakan pilih status kehadiran Anda dan isi keterangan jika diperlukan.</p>
+                            <div class="flex items-center space-x-4 mb-4">
+                                <select id="attendanceStatus" class="block w-48 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500">
+                                    <option value="Hadir">Hadir</option>
+                                    <option value="Izin">Izin</option>
+                                    <option value="Sakit">Sakit</option>
+                                </select>
+                                <button id="submitAttendance" class="bg-teal-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-teal-600 transition">Submit Absensi</button>
+                            </div>
+                            <div id="izinReasonContainer" class="hidden mt-4">
+                                <label for="izinReason" class="block text-sm font-medium text-slate-700">Keterangan Izin</label>
+                                <textarea id="izinReason" rows="3" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500" placeholder="Contoh: Mengikuti lomba, acara keluarga, dll."></textarea>
+                            </div>
+                            <div id="sakitReasonContainer" class="hidden mt-4">
+                                 <label for="sakitReason" class="block text-sm font-medium text-slate-700">Keterangan Sakit</label>
+                                <textarea id="sakitReason" rows="3" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500" placeholder="Contoh: Demam, batuk, pusing, dll."></textarea>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h2 class="text-xl font-semibold text-slate-700 mb-4">Riwayat Kehadiran</h2>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                                    <thead class="bg-slate-50">
+                                        <tr>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Tanggal</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Keterangan</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Catatan dari Wali Kelas</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="attendanceHistory" class="divide-y divide-gray-200"></tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div>
-                    <h2 class="text-xl font-semibold text-slate-700 mb-4">Riwayat Kehadiran</h2>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full bg-white border border-gray-200 rounded-lg">
-                            <thead class="bg-slate-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Tanggal</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Keterangan</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Catatan dari Wali Kelas</th>
-                                </tr>
-                            </thead>
-                            <tbody id="attendanceHistory" class="divide-y divide-gray-200"></tbody>
-                        </table>
+                 <!-- Sidebar Peringkat Siswa -->
+                <div class="w-full lg:w-1/3">
+                    <div class="bg-white p-6 rounded-xl shadow-lg sticky top-8">
+                        <h2 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Peringkat Kehadiran Teratas</h2>
+                        <ol id="rankingList" class="list-decimal list-inside space-y-3 text-slate-600"></ol>
                     </div>
                 </div>
             </div>
@@ -166,39 +185,69 @@
                     </div>
                     <button id="logoutAdmin" class="mt-4 sm:mt-0 w-full sm:w-auto bg-red-400 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-500 transition">Logout</button>
                 </div>
-
-                <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0 md:space-x-4">
-                    <div class="flex items-center space-x-2">
-                        <label for="filterDate" class="text-sm font-medium text-slate-700">Tampilkan rekap tanggal:</label>
-                        <input type="date" id="filterDate" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500">
-                    </div>
-                    <button id="downloadReport" class="w-full md:w-auto bg-sky-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-600 transition">
-                        Download Laporan Absensi
-                    </button>
+                
+                <!-- Navigasi Admin -->
+                <div class="mb-6 bg-slate-100 p-2 rounded-lg flex space-x-2">
+                    <button id="navAttendance" class="nav-btn flex-1 text-center py-2 px-4 rounded-md font-semibold text-slate-600 transition hover:bg-teal-200 active">Rekap Absensi</button>
+                    <button id="navManageAccounts" class="nav-btn flex-1 text-center py-2 px-4 rounded-md font-semibold text-slate-600 transition hover:bg-teal-200">Kelola Akun Siswa</button>
                 </div>
                 
-                <div class="mb-8">
-                    <h2 class="text-xl font-semibold text-slate-700 mb-4">Rekap Absensi Harian</h2>
-                    <div id="dailySummary" class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center"></div>
+                <!-- Konten Rekap Absensi -->
+                <div id="adminAttendanceSection">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0 md:space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <label for="filterDate" class="text-sm font-medium text-slate-700">Tampilkan rekap tanggal:</label>
+                            <input type="date" id="filterDate" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500">
+                        </div>
+                        <button id="downloadReport" class="w-full md:w-auto bg-sky-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-600 transition">
+                            Download Laporan Absensi
+                        </button>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold text-slate-700 mb-4">Rekap Absensi Harian</h2>
+                        <div id="dailySummary" class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center"></div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-semibold text-slate-700 mb-4">Daftar Kehadiran Siswa</h2>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                                <thead class="bg-slate-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Nama Siswa</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">NIS</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Keterangan Siswa</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Catatan Admin</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="studentList" class="divide-y divide-gray-200"></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
 
-                <div>
-                    <h2 class="text-xl font-semibold text-slate-700 mb-4">Daftar Kehadiran Siswa</h2>
+                <!-- Konten Kelola Akun -->
+                <div id="adminManageAccountsSection" class="hidden">
+                    <h2 class="text-xl font-semibold text-slate-700 mb-4">Pengelolaan Akun Siswa</h2>
+                    <div id="manageAccountNotification" class="hidden mb-4 p-3 rounded-md text-sm"></div>
                     <div class="overflow-x-auto">
                         <table class="min-w-full bg-white border border-gray-200 rounded-lg">
                             <thead class="bg-slate-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Nama Siswa</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">NIS</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Keterangan Siswa</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Catatan Admin</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Kelas</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Username</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Password</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="studentList" class="divide-y divide-gray-200"></tbody>
+                            <tbody id="studentAccountList" class="divide-y divide-gray-200"></tbody>
                         </table>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -206,54 +255,23 @@
     <script>
     // --- DATABASE SIMULASI ---
     let users = {
+        // Akun Siswa
         "budi123": { pass: "siswa", role: "siswa", name: "Budi Santoso", nis: "101", kelas: "12A" },
         "citra456": { pass: "siswa", role: "siswa", name: "Citra Lestari", nis: "102", kelas: "12A" },
         "dewi789": { pass: "siswa", role: "siswa", name: "Dewi Anggraini", nis: "103", kelas: "11B" },
+        "andi_10A": { pass: "siswa", role: "siswa", name: "Andi Wijaya", nis: "201", kelas: "10A" },
+        "sinta_10A": { pass: "siswa", role: "siswa", name: "Sinta Bella", nis: "202", kelas: "10A" },
+        "rina_11B": { pass: "siswa", role: "siswa", name: "Rina Marlina", nis: "301", kelas: "11B" },
+        "dodi_11B": { pass: "siswa", role: "siswa", name: "Dodi Firmansyah", nis: "302", kelas: "11B" },
+        "user": { pass: "user", role: "siswa", name: "Siswa Contoh", nis: "0", kelas: "10A" },
         
-        "user": { pass: "user", role: "siswa", name: "user", nis: "0", kelas: "10A" },
-        "admin": { pass: "admin", role: "admin", name: "admin", nis: null, kelas: "10A" },
-        
-        // --- AKUN GURU 10 ---
-        //"admin_kelas_1A": { pass: "admin", role: "admin", name: "Ibu Indah", nis: null, kelas: "10A" },
-        "admin_kelas_1B": { pass: "admin", role: "admin", name: "Bapak Budi", nis: null, kelas: "10B" },
-        "admin_kelas_1C": { pass: "admin", role: "admin", name: "Ibu Rahma", nis: null, kelas: "10C" },
-        "admin_kelas_1D": { pass: "admin", role: "admin", name: "Bapak Susanto", nis: null, kelas: "10D" },
-        "admin_kelas_1E": { pass: "admin", role: "admin", name: "Ibu Kiki", nis: null, kelas: "10E" },
-        "admin_kelas_1F": { pass: "admin", role: "admin", name: "Bapak Dayat", nis: null, kelas: "10F" },
-        "admin_kelas_1G": { pass: "admin", role: "admin", name: "Ibu Maimunah", nis: null, kelas: "10G" },
-        "admin_kelas_1H": { pass: "admin", role: "admin", name: "Bapak Rizal", nis: null, kelas: "10H" },
-        "admin_kelas_1I": { pass: "admin", role: "admin", name: "Ibu Sari", nis: null, kelas: "10I" },
-        "admin_kelas_1J": { pass: "admin", role: "admin", name: "Bapak Hari", nis: null, kelas: "10J" },
-        "admin_kelas_1K": { pass: "admin", role: "admin", name: "Ibu Melati", nis: null, kelas: "10K" },
-        "admin_kelas_1L": { pass: "admin", role: "admin", name: "Bapak Agus", nis: null, kelas: "10L" },
-     
-        // --- AKUN GURU 11 ---
-        "admin_kelas_2A": { pass: "admin", role: "admin", name: "Ibu Rina", nis: null, kelas: "11A" },
-        "admin_kelas_2B": { pass: "admin", role: "admin", name: "Bapak Doni", nis: null, kelas: "11B" },
-        "admin_kelas_2C": { pass: "admin", role: "admin", name: "Ibu Dewi", nis: null, kelas: "11C" },
-        "admin_kelas_2D": { pass: "admin", role: "admin", name: "Bapak Irfan", nis: null, kelas: "11D" },
-        "admin_kelas_2E": { pass: "admin", role: "admin", name: "Ibu Fani", nis: null, kelas: "11E" },
-        "admin_kelas_2F": { pass: "admin", role: "admin", name: "Bapak Wahyu", nis: null, kelas: "11F" },
-        "admin_kelas_2G": { pass: "admin", role: "admin", name: "Ibu Lestari", nis: null, kelas: "11G" },
-        "admin_kelas_2H": { pass: "admin", role: "admin", name: "Bapak Yudha", nis: null, kelas: "11H" },
-        "admin_kelas_2I": { pass: "admin", role: "admin", name: "Ibu Nita", nis: null, kelas: "11I" },
-        "admin_kelas_2J": { pass: "admin", role: "admin", name: "Bapak Edo", nis: null, kelas: "11J" },
-        "admin_kelas_2K": { pass: "admin", role: "admin", name: "Ibu Siska", nis: null, kelas: "11K" },
-        "admin_kelas_2L": { pass: "admin", role: "admin", name: "Bapak Hendra", nis: null, kelas: "11L" },
-        
-        // --- AKUN GURU 12 ---
-        "admin_kelas_3A": { pass: "admin", role: "admin", name: "Ibu Fitri", nis: null, kelas: "12A" },
-        "admin_kelas_3B": { pass: "admin", role: "admin", name: "Bapak Dedi", nis: null, kelas: "12B" },
-        "admin_kelas_3C": { pass: "admin", role: "admin", name: "Ibu Ayu", nis: null, kelas: "12C" },
-        "admin_kelas_3D": { pass: "admin", role: "admin", name: "Bapak Roni", nis: null, kelas: "12D" },
-        "admin_kelas_3E": { pass: "admin", role: "admin", name: "Ibu Wulan", nis: null, kelas: "12E" },
-        "admin_kelas_3F": { pass: "admin", role: "admin", name: "Bapak Taufik", nis: null, kelas: "12F" },
-        "admin_kelas_3G": { pass: "admin", role: "admin", name: "Ibu Reni", nis: null, kelas: "12G" },
-        "admin_kelas_3H": { pass: "admin", role: "admin", name: "Bapak Anton", nis: null, kelas: "12H" },
-        "admin_kelas_3I": { pass: "admin", role: "admin", name: "Ibu Mira", nis: null, kelas: "12I" },
-        "admin_kelas_3J": { pass: "admin", role: "admin", name: "Bapak Arif", nis: null, kelas: "12J" },
-        "admin_kelas_3K": { pass: "admin", role: "admin", name: "Ibu Dian", nis: null, kelas: "12K" },
-        "admin_kelas_3L": { pass: "admin", role: "admin", name: "Bapak Bambang", nis: null, kelas: "12L" },
+        // Akun Admin (Wali Kelas)
+        "admin": { pass: "admin", role: "admin", name: "Guru Contoh", nis: null, kelas: "10A" },
+        "budi10B": { pass: "admin", role: "admin", name: "Bapak Budi", nis: null, kelas: "10B" },
+        "rahma10C": { pass: "admin", role: "admin", name: "Ibu Rahma", nis: null, kelas: "10C" },
+        "doni11B": { pass: "admin", role: "admin", name: "Bapak Doni", nis: null, kelas: "11B" },
+        "fitri12A": { pass: "admin", role: "admin", name: "Ibu Fitri", nis: null, kelas: "12A" },
+        "test": { pass: "admin", role: "admin", name: "test", nis: null, kelas: "11D" },
     };
 
     let studentsData = [
@@ -261,6 +279,11 @@
         { name: "Citra Lestari", nis: "102", kelas: "12A" },
         { name: "Dewi Anggraini", nis: "103", kelas: "11B" },
         { name: "Eko Prasetyo", nis: "104", kelas: "12A" },
+        { name: "Andi Wijaya", nis: "201", kelas: "10A" },
+        { name: "Sinta Bella", nis: "202", kelas: "10A" },
+        { name: "Siswa Contoh", nis: "0", kelas: "10A" },
+        { name: "Rina Marlina", nis: "301", kelas: "11B" },
+        { name: "Dodi Firmansyah", nis: "302", kelas: "11B" },
     ];
     
     let attendanceRecords = [
@@ -269,6 +292,13 @@
         { nis: "102", date: "2025-09-15", status: "Hadir", keterangan: "", notes: "", hasNewNote: false },
         { nis: "102", date: "2025-09-16", status: "Hadir", keterangan: "", notes: "Telat 10 menit.", hasNewNote: true },
         { nis: "103", date: "2025-09-15", status: "Sakit", keterangan: "Demam dan flu", notes: "Surat dokter terlampir.", hasNewNote: false },
+        { nis: "201", date: "2025-09-15", status: "Hadir", keterangan: "", notes: "", hasNewNote: false },
+        { nis: "201", date: "2025-09-16", status: "Hadir", keterangan: "", notes: "", hasNewNote: false },
+        { nis: "202", date: "2025-09-15", status: "Sakit", keterangan: "pusing", notes: "", hasNewNote: false },
+        { nis: "202", date: "2025-09-16", status: "Hadir", keterangan: "", notes: "", hasNewNote: false },
+        { nis: "301", date: "2025-09-16", status: "Hadir", keterangan: "", notes: "", hasNewNote: false },
+        { nis: "302", date: "2025-09-16", status: "Izin", keterangan: "acara keluarga", notes: "", hasNewNote: false },
+        { nis: "0", date: "2025-09-16", status: "Hadir", keterangan: "", notes: "", hasNewNote: false },
     ];
     // --- AKHIR DATABASE SIMULASI ---
 
@@ -370,6 +400,27 @@
         izinReasonContainer.classList.toggle('hidden', selectedStatus !== 'Izin');
         sakitReasonContainer.classList.toggle('hidden', selectedStatus !== 'Sakit');
     });
+
+    const renderStudentRanking = () => {
+        const rankingList = document.getElementById('rankingList');
+        rankingList.innerHTML = '';
+
+        const scores = studentsData.map(student => {
+            const hadirCount = attendanceRecords.filter(rec => rec.nis === student.nis && rec.status === 'Hadir').length;
+            return { name: student.name, hadirCount: hadirCount };
+        });
+
+        scores.sort((a, b) => b.hadirCount - a.hadirCount);
+
+        const top10 = scores.slice(0, 10);
+        
+        top10.forEach(student => {
+            const li = document.createElement('li');
+            li.className = "p-2 rounded-md hover:bg-slate-100";
+            li.innerHTML = `<span class="font-semibold">${student.name}</span> - ${student.hadirCount} kali hadir`;
+            rankingList.appendChild(li);
+        });
+    };
     
     const renderStudentDashboard = () => {
         document.getElementById('studentInfo').innerHTML = `Selamat datang, <span class="font-semibold">${currentUser.name}</span> (NIS: <span class="font-semibold">${currentUser.nis}</span>)`;
@@ -392,7 +443,7 @@
             submitButton.disabled = false;
             submitButton.classList.remove('bg-gray-400', 'cursor-not-allowed');
             attendanceStatusSelect.disabled = false;
-            attendanceStatusSelect.value = 'Hadir'; // Reset to default
+            attendanceStatusSelect.value = 'Hadir';
             izinReasonContainer.classList.add('hidden');
             sakitReasonContainer.classList.add('hidden');
         }
@@ -415,6 +466,8 @@
                 `;
                 historyTable.innerHTML += row;
             });
+        
+        renderStudentRanking();
     };
 
     document.getElementById('submitAttendance').addEventListener('click', () => {
@@ -449,13 +502,32 @@
         let present = 0, permit = 0, sick = 0, absent = 0;
         const studentListTable = document.getElementById('studentList');
         studentListTable.innerHTML = '';
+
+        const today = getTodayDateString();
+        const isViewingPastDate = new Date(filterDate).setHours(0,0,0,0) < new Date(today).setHours(0,0,0,0);
         
         studentsInClass.forEach(student => {
             const attendance = attendanceRecords.find(rec => rec.nis === student.nis && rec.date === filterDate);
-            const status = attendance ? attendance.status : "Alfa";
-            const keterangan = attendance ? (attendance.keterangan || '-') : "-";
-            const notes = attendance ? attendance.notes : "";
+            
+            let status, keterangan, notes, statusColor;
 
+            if (attendance) {
+                status = attendance.status;
+                keterangan = attendance.keterangan || '-';
+                notes = attendance.notes || '';
+                statusColor = { "Hadir": "bg-green-100 text-green-800", "Izin": "bg-amber-100 text-amber-800", "Sakit": "bg-orange-100 text-orange-800"}[status] || "bg-gray-100 text-gray-800";
+            } else {
+                if (isViewingPastDate) {
+                    status = "Alfa";
+                    statusColor = "bg-red-100 text-red-800";
+                } else {
+                    status = "Belum Mengisi";
+                    statusColor = "bg-gray-100 text-gray-800";
+                }
+                keterangan = '-';
+                notes = '';
+            }
+            
             switch(status) {
                 case "Hadir": present++; break;
                 case "Izin": permit++; break;
@@ -463,7 +535,7 @@
                 case "Alfa": absent++; break;
             }
             
-            const statusColor = { "Hadir": "bg-green-100 text-green-800", "Izin": "bg-amber-100 text-amber-800", "Sakit": "bg-orange-100 text-orange-800", "Alfa": "bg-red-100 text-red-800"}[status] || "bg-gray-100 text-gray-800";
+            const notesInput = `<input type="text" value="${notes}" data-nis="${student.nis}" data-date="${filterDate}" class="note-input w-full p-1 border rounded" placeholder="Tambah catatan..." ${!attendance ? 'disabled' : ''}>`;
             
             const row = `
                 <tr>
@@ -472,15 +544,12 @@
                     <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusColor}">${status}</span></td>
                     <td class="px-6 py-4 text-sm text-slate-500">${keterangan}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
-                        <input type="text" value="${notes}" data-nis="${student.nis}" data-date="${filterDate}" class="note-input w-full p-1 border rounded" placeholder="Tambah catatan...">
+                        ${notesInput}
                     </td>
                 </tr>
             `;
             studentListTable.innerHTML += row;
         });
-
-        // Calculate absent based on total students in class
-        absent = studentsInClass.length - (present + permit + sick);
 
         const summaryDiv = document.getElementById('dailySummary');
         summaryDiv.innerHTML = `
@@ -493,6 +562,74 @@
             input.addEventListener('change', (e) => saveNote(e.target));
         });
     };
+    
+    const renderStudentAccountManagement = () => {
+        const adminKelas = currentUser.kelas;
+        const studentAccountList = document.getElementById('studentAccountList');
+        studentAccountList.innerHTML = '';
+        
+        Object.entries(users).forEach(([username, user]) => {
+            if (user.role === 'siswa' && user.kelas === adminKelas) {
+                const row = `
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">${user.name}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">${user.kelas}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <input type="text" value="${username}" data-original-username="${username}" class="account-username w-full p-1 border rounded">
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                             <input type="text" value="${user.pass}" class="account-password w-full p-1 border rounded">
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                            <button class="save-account-btn text-white bg-teal-500 hover:bg-teal-600 font-semibold py-1 px-3 rounded-md transition" data-username="${username}">Simpan</button>
+                        </td>
+                    </tr>
+                `;
+                studentAccountList.innerHTML += row;
+            }
+        });
+    };
+
+    document.getElementById('studentAccountList').addEventListener('click', (e) => {
+        if (e.target.classList.contains('save-account-btn')) {
+            const originalUsername = e.target.dataset.username;
+            const row = e.target.closest('tr');
+            const newUsername = row.querySelector('.account-username').value;
+            const newPassword = row.querySelector('.account-password').value;
+            const notification = document.getElementById('manageAccountNotification');
+            
+            if (!newUsername || !newPassword) {
+                notification.textContent = 'Error: Username dan password tidak boleh kosong.';
+                notification.className = 'mb-4 p-3 rounded-md text-sm bg-red-100 text-red-800';
+                notification.classList.remove('hidden');
+                return;
+            }
+            
+            if (newUsername !== originalUsername && users[newUsername]) {
+                notification.textContent = 'Error: Username baru sudah digunakan oleh akun lain.';
+                notification.className = 'mb-4 p-3 rounded-md text-sm bg-red-100 text-red-800';
+                notification.classList.remove('hidden');
+                return;
+            }
+            
+            const userToUpdate = users[originalUsername];
+            userToUpdate.pass = newPassword;
+
+            if (newUsername !== originalUsername) {
+                users[newUsername] = userToUpdate;
+                delete users[originalUsername];
+            }
+
+            notification.textContent = `Akun untuk ${userToUpdate.name} berhasil diperbarui.`;
+            notification.className = 'mb-4 p-3 rounded-md text-sm bg-teal-100 text-teal-800';
+            notification.classList.remove('hidden');
+            
+            renderStudentAccountManagement();
+            
+            setTimeout(() => notification.classList.add('hidden'), 3000);
+        }
+    });
+
 
     const saveNote = (inputElement) => {
         const nis = inputElement.dataset.nis;
@@ -506,44 +643,42 @@
     };
     
     document.getElementById('filterDate').addEventListener('change', renderAdminDashboard);
+    document.getElementById('navAttendance').addEventListener('click', () => {
+        document.getElementById('adminAttendanceSection').classList.remove('hidden');
+        document.getElementById('adminManageAccountsSection').classList.add('hidden');
+        document.getElementById('navAttendance').classList.add('active');
+        document.getElementById('navManageAccounts').classList.remove('active');
+    });
+    
+    document.getElementById('navManageAccounts').addEventListener('click', () => {
+        document.getElementById('adminAttendanceSection').classList.add('hidden');
+        document.getElementById('adminManageAccountsSection').classList.remove('hidden');
+        document.getElementById('navManageAccounts').classList.add('active');
+        document.getElementById('navAttendance').classList.remove('active');
+        renderStudentAccountManagement();
+    });
     
     document.getElementById('downloadReport').addEventListener('click', () => {
         const adminKelas = currentUser.kelas;
         const filterDate = document.getElementById('filterDate').value;
 
-        // Siapkan data untuk Excel, difilter berdasarkan kelas admin
         const dataForExcel = studentsData
             .filter(student => student.kelas === adminKelas)
             .map(student => {
                 const attendance = attendanceRecords.find(rec => rec.nis === student.nis && rec.date === filterDate);
-                const status = attendance ? attendance.status : "Alfa";
-                const keteranganSiswa = attendance ? (attendance.keterangan || '-') : "-";
-                const catatanAdmin = attendance ? (attendance.notes || '-') : "-";
-
                 return {
                     "NIS": student.nis,
                     "Nama Siswa": student.name,
-                    "Status": status,
-                    "Keterangan Siswa": keteranganSiswa,
-                    "Catatan Admin": catatanAdmin
+                    "Status": attendance ? attendance.status : "Alfa",
+                    "Keterangan Siswa": attendance ? (attendance.keterangan || '-') : "-",
+                    "Catatan Admin": attendance ? (attendance.notes || '-') : "-"
                 };
             });
 
-        // Buat worksheet dan workbook
         const worksheet = XLSX.utils.json_to_sheet(dataForExcel);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, `Absensi ${adminKelas} - ${filterDate}`);
-
-        // Atur lebar kolom agar lebih mudah dibaca
-        worksheet["!cols"] = [
-            { wch: 15 }, // NIS
-            { wch: 30 }, // Nama Siswa
-            { wch: 10 }, // Status
-            { wch: 40 }, // Keterangan Siswa
-            { wch: 40 }  // Catatan Admin
-        ];
-
-        // Memicu unduhan file
+        worksheet["!cols"] = [ { wch: 15 }, { wch: 30 }, { wch: 10 }, { wch: 40 }, { wch: 40 } ];
         XLSX.writeFile(workbook, `Laporan_Absensi_${adminKelas}_${filterDate}.xlsx`);
     });
 
@@ -562,8 +697,3 @@
 </body>
 
 </html>
-
-
-
-
-
